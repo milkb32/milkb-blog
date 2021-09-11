@@ -1,0 +1,11 @@
+id: milkb_blog
+name: milkb
+author:
+  name: milkb
+  website: http://milkb.sonder.fun
+description:
+logo:
+website: https://github.com/milkb32/milkb-blog
+repo: https://github.com/milkb32/milkb-blog
+version: 0.0.1
+require: 1.3.0
