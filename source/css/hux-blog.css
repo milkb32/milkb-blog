@@ -1651,3 +1651,8 @@ img::-moz-selection {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+/*for search*/
+.search-input {
+  width:100px;
+}
