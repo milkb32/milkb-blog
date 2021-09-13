@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading" id="tag-heading">
-                    <input class="search-input" placeholder="search for"></input>
+                    <input class="search-input" placeholder="search for" name="keyword">{${keyword!}}</input>
                 </div>
             </div>
         </div>
@@ -14,46 +14,39 @@
 </header>
 
 <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="mini-post-list js-result">
-                <#list archives as archive>
-                    <section>
-                        <span class="fa listing-seperator">
-					    <span class="tag-text">${archive.year?c}</span>
-                        <#list archive.posts as post>
-                            <div class="post-preview item">
-                                <a href="${post.fullPath!}">
-                                    <h2 class="post-title">
-                                        ${post.title!}
-                                    </h2>
-                                </a>
-                                <hr>
-                            </div>
-                        </#list>
-                    </section>
-                </#list>
-            </div>
+<#include "module/page.ftl">
+<@page title="${blog_title!}" pagetitle="${blog_title!}" slogn="${settings.index_slogn!}" cover="${settings.index_cover!'${theme_base!}/source/img/home-bg.jpg'}">
+    <#list posts.content as post>
+        <div class="post-preview">
+            <a href="${post.fullPath!}">
+                <h2 class="post-title">
+                    ${post.title!}
+                </h2>
+                <div class="post-content-preview">
+                    ${post.summary}
+                </div>
+            </a>
+            <p class="post-meta">
+                Posted by ${user.nickname!} on ${post.createTime?string("MM-dd，yyyy")}
+            </p>
         </div>
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <#if posts.totalPages gt 1>
-                <ul class="pager">
-                    <@paginationTag method="archives" page="${posts.number}" total="${posts.totalPages}" display="0">
-                        <#if pagination.hasPrev>
-                            <li class="previous">
-                                <a href="${pagination.prevPageFullPath!}">&larr; Newer Posts</a>
-                            </li>
-                        </#if>
-                        <#if pagination.hasNext>
-                            <li class="next">
-                                <a href="${pagination.nextPageFullPath!}">Older Posts &rarr;</a>
-                            </li>
-                        </#if>
-                    </@paginationTag>
-                </ul>
-            </#if>
-        </div>
-    </div>
-</div>
+        <hr>
+    </#list>
+    <#if posts.totalPages gt 1>
+        <ul class="pager">
+            <@paginationTag method="index" page="${posts.number}" total="${posts.totalPages}" display="0">
+                <#if pagination.hasPrev>
+                    <li class="previous">
+                        <a href="${pagination.prevPageFullPath!}">&larr; Newer Posts</a>
+                    </li>
+                </#if>
+                <#if pagination.hasNext>
+                    <li class="next">
+                        <a href="${pagination.nextPageFullPath!}">Older Posts &rarr;</a>
+                    </li>
+                </#if>
+            </@paginationTag>
+        </ul>
+    </#if>
+</@page>
 </@default>
